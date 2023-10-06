@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:untitled/providers/BlogProvider.dart';
+import 'package:untitled/screens/IndividualBlogScreen.dart';
 
 void main() {
   runApp(
@@ -81,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      _counter++;
+
     });
   }
 
@@ -94,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
 
-    final blogList = Provider.of<BlogProvider>(context);
+    final blogList = Provider.of<BlogProvider>(context).data.blogs;
     return Scaffold(
       appBar: AppBar(
         // TRY THIS: Try changing the color here to a specific color (to
@@ -105,10 +106,31 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
+      body:Material(
+        child: ListView.builder(
+          itemCount: blogList.length ,
+          itemBuilder: (BuildContext context, int index) {
+            return InkWell(
+                 onTap: (){
+                   Navigator.push(context,MaterialPageRoute(builder: (context) => const IndividuaBlogScreen()));
+                 },
+                child: card(blogList[index].imageUrl.toString(), blogList[index].title.toString(), context));
+          },
+        ),
+      ),
+
+
+      /*Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: Column(
+        child: Card(
+          child: Column(
+            children: [
+              Image.network("https://cdn.pixabay.com/photo/2021/06/01/07/03/sparrow-6300790_960_720.jpg"),
+              Text("Sparrow")
+            ],
+          ),
+        )*//*Column(
           // Column is also a layout widget. It takes a list of children and
           // arranges them vertically. By default, it sizes itself to fit its
           // children horizontally, and tries to be as tall as its parent.
@@ -132,13 +154,41 @@ class _MyHomePageState extends State<MyHomePage> {
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
+        ),*//*
+      )*/
+      /*floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),*/ // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+}
+
+Widget card(String image, String title, BuildContext context) {
+  return Card(
+    color: Colors.yellow[50],
+    elevation: 8.0,
+    margin: EdgeInsets.all(4.0),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+    child: Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Image.network(
+            image,
+            height: MediaQuery.of(context).size.width * (3 / 4),
+            width: MediaQuery.of(context).size.width,
+          ),
+        ),
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 38.0,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ],
+    ),
+  );
 }
