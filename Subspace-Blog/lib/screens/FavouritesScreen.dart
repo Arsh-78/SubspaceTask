@@ -57,18 +57,19 @@ class _FavoriteScreenState extends State<FavoritesScreen>{
 
 
     return Scaffold(
+
       appBar: AppBar(
         // TRY THIS: Try changing the color here to a specific color (to
         // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
         // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Colors.transparent,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(blogs.length.toString()),
+        title: Text(blogs.length.toString(),style: TextStyle(color: Colors.white),),
       ),
-      body:Material(
-        child: ListView.builder(
+      body:ListView.builder(
           itemCount: blogs.length ,
+
           itemBuilder: (BuildContext context, int index) {
             return InkWell(
                 onTap: (){
@@ -77,7 +78,7 @@ class _FavoriteScreenState extends State<FavoritesScreen>{
                 child: fcard(null,blogs[index], context));
           },
         ),
-      ),
+
 
 
       /*Center(
@@ -127,10 +128,12 @@ class _FavoriteScreenState extends State<FavoritesScreen>{
 
 Widget fcard(BlogProvider? favourites,Blogs blog, BuildContext context) {
   return Card(
-    color: Colors.yellow[50],
+    color: Color(0xffc3c3c),
     elevation: 8.0,
     margin: EdgeInsets.all(4.0),
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15),side:BorderSide(
+      color: Colors.yellowAccent,
+    )),
     child: Column(
       children: [
         Padding(
@@ -141,11 +144,14 @@ Widget fcard(BlogProvider? favourites,Blogs blog, BuildContext context) {
             width: MediaQuery.of(context).size.width,
           ),
         ),
-        Text(
-          blog.title.toString(),
-          style: TextStyle(
-            fontSize: 38.0,
-            fontWeight: FontWeight.w700,
+        Center(
+          child: Text(
+            blog.title.toString(),
+            style: TextStyle(
+              fontSize: 38.0,
+              fontWeight: FontWeight.w400,
+              color: Colors.white
+            ),
           ),
         ),
 
