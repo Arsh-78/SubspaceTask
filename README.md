@@ -5,16 +5,18 @@
 
 
 <h2>Individual Screen</h2>
-![image](https://github.com/Arsh-78/SubspaceTask/assets/76211430/6db43e30-209a-4034-bf22-341b74c8691b)
+![Screenshot from 2023-10-07 00-11-55](https://github.com/Arsh-78/SubspaceTask/assets/76211430/7dd3cbf5-9da5-4064-847b-e80aa994e445)
+
 
 <h2>Add to favourites</h2>
-![image](https://github.com/Arsh-78/SubspaceTask/assets/76211430/24acd720-d50f-447c-a997-2a75063278eb)
+![Screenshot from 2023-10-07 00-12-50](https://github.com/Arsh-78/SubspaceTask/assets/76211430/f5021bcc-264e-477e-982d-dea457ffb3e3)
+
 
 ![image](https://github.com/Arsh-78/SubspaceTask/assets/76211430/033c1f7f-a5ad-47ef-9d70-02c23c80fff5)
 
 
 <h2>Favourites Screen</h2>
-![image](https://github.com/Arsh-78/SubspaceTask/assets/76211430/7abc3c2f-d496-45eb-a5d6-179912a0a315)
-![Uploading image.png…]()
+![Screenshot from 2023-10-07 00-17-36](https://github.com/Arsh-78/SubspaceTask/assets/76211430/8bc6c11d-3418-4618-8ad2-85ae91f531d0)
+![Screenshot from 2023-10-07 00-09-46](https://github.com/Arsh-78/SubspaceTask/assets/76211430/5fa85058-f23a-45e3-8ca1-e1e91c8c775c)
 
 
