@@ -1,7 +1,8 @@
 # SubspaceTask
 
 <h2>All Blog Screen</h2>
-![image](https://github.com/Arsh-78/SubspaceTask/assets/76211430/24acd720-d50f-447c-a997-2a75063278eb)
+![Screenshot from 2023-10-07 00-09-06](https://github.com/Arsh-78/SubspaceTask/assets/76211430/1925544a-cfa2-47f4-967f-cb5736360dbc)
+
 
 <h2>Individual Screen</h2>
 ![image](https://github.com/Arsh-78/SubspaceTask/assets/76211430/6db43e30-209a-4034-bf22-341b74c8691b)
