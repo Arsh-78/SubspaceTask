@@ -1,58 +1,15 @@
-import 'dart:collection';
 
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled/models/Blogs.dart';
 
-import 'package:untitled/providers/BlogProvider.dart';
-import 'package:untitled/screens/FavouritesScreen.dart';
-import 'package:untitled/screens/IndividualBlogScreen.dart';
+import '../main.dart';
+import '../providers/BlogProvider.dart';
+import 'IndividualBlogScreen.dart';
 
-void main() {
-  runApp(
-     MultiProvider(providers: [
-       ChangeNotifierProvider<BlogProvider>(create: (_)=>BlogProvider())
-     ],
-       child: MyApp(),
-     )
-  );
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a blue toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-   const MyHomePage({super.key, required this.title});
+class FavoritesScreen extends StatefulWidget {
+   FavoritesScreen({super.key});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -63,24 +20,26 @@ class MyHomePage extends StatefulWidget {
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
 
-  final String title;
+
+  List<Blogs> list=[];
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<FavoritesScreen> createState() => _FavoriteScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  //int _counter = 0;
+class _FavoriteScreenState extends State<FavoritesScreen>{
 
   @override
   void initState()
   {
     super.initState();
-     Provider.of<BlogProvider>(context, listen: false).getPostData(context);
+
+    final blogList = Provider.of<BlogProvider>(context,listen: false);
 
 
 
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -91,8 +50,10 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
 
-    final blogList = Provider.of<BlogProvider>(context);
+    final blogListn = Provider.of<BlogProvider>(context);
 
+
+    List<Blogs>blogs = blogListn.favourites;
 
 
     return Scaffold(
@@ -103,35 +64,20 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Text(blogs.length.toString()),
       ),
-      body:
-      Material(
-        child:blogList.loading ? Center(
-          child: Container(
-            child: const CircularProgressIndicator(),
-          ),
-        ): ListView.builder(
-          itemCount: blogList.data?.blogs.length ,
+      body:Material(
+        child: ListView.builder(
+          itemCount: blogs.length ,
           itemBuilder: (BuildContext context, int index) {
             return InkWell(
-                 onTap: (){
-                   Navigator.push(context,MaterialPageRoute(builder: (context) =>  IndividuaBlogScreen(blog: blogList.data!.blogs[index],)));
-                 },
-                child: card(blogList,blogList.data!.blogs[index], context));
+                onTap: (){
+                  Navigator.push(context,MaterialPageRoute(builder: (context) =>  IndividuaBlogScreen(blog: widget.list[index],)));
+                },
+                child: fcard(null,blogs[index], context));
           },
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.favorite_border_rounded),
-        backgroundColor: Colors.pink,
-        onPressed: ()
-        {
-          Navigator.push(context,MaterialPageRoute(builder: (context) =>  FavoritesScreen()));
-        },
-      ),
-
 
 
       /*Center(
@@ -179,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-Widget card(BlogProvider? favourites,Blogs blog, BuildContext context) {
+Widget fcard(BlogProvider? favourites,Blogs blog, BuildContext context) {
   return Card(
     color: Colors.yellow[50],
     elevation: 8.0,
@@ -202,26 +148,10 @@ Widget card(BlogProvider? favourites,Blogs blog, BuildContext context) {
             fontWeight: FontWeight.w700,
           ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FavoriteButton(
-              isFavorite: false,
-              valueChanged: (isFavorite){
-                if(isFavorite)
-                  {
-                    favourites?.addToFavourite(context, blog);
-                  }
-                else
-                  {
-                    favourites?.removeFromFavourite(context, blog);
-                  }
-              }
-              ,
-            )
-          ],
-        )
+
       ],
     ),
   );
 }
+
+
